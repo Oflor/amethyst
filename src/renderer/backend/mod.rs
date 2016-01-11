@@ -5,15 +5,11 @@ use renderer::ir::state_dynamic::*;
 use renderer::ir::state_static::{Pipeline, PipelineInfo};
 use renderer::types::*;
 
+pub mod resources;
+
 /// Trait implemented by renderer backends.
 pub trait Backend {
     fn process(&mut self, buffers: Vec<CommandBuffer>);
-}
-
-/// Trait for managing handles to GPU resources.
-pub trait Resources {
-    fn create_buffer(&mut self, info: BufferInfo) -> Option<Buffer>;
-    fn create_shader(&mut self) -> Option<Shader>;
 }
 
 /// Trait for managing handles to GPU state objects.
