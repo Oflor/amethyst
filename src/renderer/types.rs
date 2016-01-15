@@ -7,13 +7,6 @@ pub struct BufferInfo {
 }
 
 #[derive(Clone, Copy)]
-pub enum Buffer {
-    Index(u64),
-    Uniform(u64),
-    Vertex(u64),
-}
-
-#[derive(Clone, Copy)]
 pub enum Shader {
     Compute(u64),
     Fragment(u64),

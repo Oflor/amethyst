@@ -37,7 +37,3 @@ pub struct PipelineInfo {
     pub rasterizer: RasterizerInfo,
     pub shaders: ShaderSet,
 }
-
-/// Handle to a pipeline state object.
-#[derive(Clone, Eq, Ord, PartialEq, PartialOrd)]
-pub struct Pipeline(u64);

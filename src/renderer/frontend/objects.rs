@@ -2,7 +2,6 @@
 
 use super::Renderable;
 use renderer::ir::{CommandBuffer, CommandEncoder};
-use renderer::types::Buffer;
 
 /// A particle emitter.
 pub struct Emitter;

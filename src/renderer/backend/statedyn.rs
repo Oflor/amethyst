@@ -45,16 +45,3 @@ pub struct ViewportInfo {
     pub scissors: Vec<ScissorBox>,
     pub viewports: Vec<Viewport>,
 }
-
-/// Handle to a dynamic state object.
-#[derive(Clone, Eq, PartialEq)]
-pub enum DynamicState {
-    /// Color blend state.
-    Blend(u64),
-    /// Depth stencil state.
-    DepthStencil(u64),
-    /// Rasterizer state.
-    Rasterizer(u64),
-    /// Viewport state.
-    Viewport(u64),
-}

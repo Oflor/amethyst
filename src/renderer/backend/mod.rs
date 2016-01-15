@@ -1,22 +1,37 @@
 //! Makes low-level graphics API calls and manages memory.
 
 use renderer::ir::CommandBuffer;
-use renderer::ir::state_dynamic::*;
-use renderer::ir::state_static::{Pipeline, PipelineInfo};
-use renderer::types::*;
 
-pub mod resources;
+use std::fmt::Debug;
+
+mod handles;
+pub mod statedyn;
+pub mod statestat;
+
+pub use self::handles::{Buffer, Pipeline};
 
 /// Trait implemented by renderer backends.
 pub trait Backend {
     fn process(&mut self, buffers: Vec<CommandBuffer>);
 }
 
-/// Trait for managing handles to GPU state objects.
-pub trait States {
-    fn create_blend(&mut self, info: BlendInfo) -> Option<DynamicState>;
-    fn create_depth_stencil(&mut self, info: DepthStencilInfo) -> Option<DynamicState>;
-    fn create_pipeline(&mut self, info: PipelineInfo) -> Option<Pipeline>;
-    fn create_raster(&mut self, info: RasterizerInfo) -> Option<DynamicState>;
-    fn create_viewport(&mut self, info: ViewportInfo) -> Option<DynamicState>;
+pub trait Resources: Clone + Debug + Eq + PartialEq {
+    type Buffer: Clone + Debug + Eq + PartialEq;
+    type Fence: Clone + Debug + Eq + PartialEq;
+    type Sampler: Clone + Debug + Eq + PartialEq;
+    type Shader: Clone + Debug + Eq + PartialEq;
+    type Texture: Clone + Debug + Eq + PartialEq;
+}
+
+pub trait States: Clone + Debug + Eq + PartialEq {
+    type Blend: Clone + Debug + Eq + PartialEq;
+    type DepthStencil: Clone + Debug + Eq + PartialEq;
+    type Pipeline: Clone + Debug + Eq + PartialEq;
+    type Raster: Clone + Debug + Eq + PartialEq;
+    type Viewport: Clone + Debug + Eq + PartialEq;
+}
+
+pub trait Factory<R: Resources, S: States> {
+    fn create_buffer(&mut self) -> Buffer<R::Buffer>;
+    fn create_pipeline(&mut self) -> Pipeline<S::Pipeline>;
 }

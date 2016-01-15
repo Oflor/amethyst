@@ -1,9 +1,6 @@
 //! Platform-agnostic intermediate representation used by the frontend and
 //! backend to communicate.
 
-pub mod state_dynamic;
-pub mod state_static;
-
 mod cmd_buffer;
 mod cmd_encoder;
 mod cmd_queue;

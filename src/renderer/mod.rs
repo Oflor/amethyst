@@ -7,4 +7,3 @@ pub mod types;
 
 pub use self::backend::Backend;
 pub use self::frontend::{Frame, Frontend, Renderable};
-pub use self::types::{Buffer, BufferInfo, ClearMask, Shader};
