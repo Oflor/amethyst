@@ -10,7 +10,7 @@ pub enum Command {
     Draw(u32, u32),
     DrawIndexed(u32, u32, usize),
     SetBuffer(Buffer),
-    SetDynamicState(DynamicState),
+    // TODO: SetDynamicState(DynamicState),
     SetPipeline(Pipeline),
 }
 
