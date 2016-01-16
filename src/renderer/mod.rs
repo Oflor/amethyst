@@ -5,5 +5,5 @@ pub mod frontend;
 pub mod ir;
 pub mod types;
 
-pub use self::backend::Backend;
+pub use self::backend::{Backend, Resources, States};
 pub use self::frontend::{Frame, Frontend, Renderable};

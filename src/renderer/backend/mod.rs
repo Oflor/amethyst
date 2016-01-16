@@ -7,6 +7,7 @@ mod resources;
 mod state;
 
 pub use self::handles::{Buffer, Pipeline};
+pub use self::state::PipelineInfo;
 
 /// A trait implemented by renderer backends.
 pub trait Backend: Sized {
@@ -14,7 +15,7 @@ pub trait Backend: Sized {
     type States: States;
 
     fn process(&mut self, buffers: Vec<CommandBuffer>);
-}
+} 
 
 /// A trait that describes GPU resources.
 pub trait Resources: Clone + Eq + PartialEq {
@@ -34,7 +35,6 @@ pub trait States: Clone + Eq + PartialEq {
     type Viewport: Clone + Eq + PartialEq;
 }
 
-/// 
 pub trait Factory<R: Resources, S: States> {
     fn create_buffer(&mut self) -> Buffer<R::Buffer>;
     fn create_pipeline(&mut self, info: PipelineInfo) -> Pipeline<S::Pipeline>;

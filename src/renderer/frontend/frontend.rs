@@ -24,14 +24,13 @@ impl Frame {
 }
 
 /// Simple renderer frontend.
-pub struct Frontend {
-    backend: Box<Backend>,
+pub struct Frontend<B: Backend>{
+    backend: Box<B>,
     queue: CommandQueue,
 }
 
-impl Frontend {
-    pub fn new<T: 'static>(backend: T) -> Frontend
-        where T: Backend
+impl<B: Backend> Frontend<B> {
+    pub fn new<B>(backend: B) -> Frontend<B>
     {
         Frontend {
             backend: Box::new(backend),

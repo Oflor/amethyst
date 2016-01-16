@@ -1,11 +1,5 @@
 //! Special types for representing cross-API GPU data.
 
-pub struct BufferInfo {
-    // TODO: Add const *void buffer data.
-    /// Size in bytes.
-    pub size: usize,
-}
-
 #[derive(Clone, Copy)]
 pub enum Shader {
     Compute(u64),
