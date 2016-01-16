@@ -2,13 +2,10 @@
 
 use renderer::ir::CommandBuffer;
 
+mod frontend;
+pub use self::frontend::{Frontend, Frame};
+
 /// A trait that describes a renderable Frame element.
 pub trait Renderable {
     fn to_cmdbuf(&self) -> CommandBuffer;
 }
-
-pub mod lights;
-pub mod objects;
-
-mod frontend;
-pub use self::frontend::{Frontend, Frame};
