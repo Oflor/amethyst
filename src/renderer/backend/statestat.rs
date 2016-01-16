@@ -2,6 +2,14 @@
 
 use renderer::types::*;
 
+pub struct PipelineInfo {
+    pub color_blender: BlenderInfo,
+    pub depth_stencil: DepthStencilTesterInfo,
+    pub input_assembler: InputAssemblerInfo,
+    pub rasterizer: RasterizerInfo,
+    pub shaders: ShaderSet,
+}
+
 pub struct BlenderInfo {
     pub alpha_to_coverage_enabled: bool,
     pub dual_source_enabled: bool,
@@ -9,7 +17,7 @@ pub struct BlenderInfo {
     pub targets: Vec<TargetInfo>,
 }
 
-pub struct DepthStencilTesterInfo {
+pub struct DepthStencilInfo {
     pub format_channel: u32,
     pub format_numeric: u32,
 }
@@ -28,12 +36,4 @@ pub struct TargetInfo {
     pub channel_write_mask: u8,
     pub format_channel: u32,
     pub format_numeric: u32,
-}
-
-pub struct PipelineInfo {
-    pub color_blender: BlenderInfo,
-    pub depth_stencil: DepthStencilTesterInfo,
-    pub input_assembler: InputAssemblerInfo,
-    pub rasterizer: RasterizerInfo,
-    pub shaders: ShaderSet,
 }

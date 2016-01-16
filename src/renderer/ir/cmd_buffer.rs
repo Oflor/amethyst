@@ -1,7 +1,7 @@
 use std::cmp::Ordering;
-use super::state_dynamic::DynamicState;
-use super::state_static::Pipeline;
-use renderer::types::{Buffer, ClearMask};
+
+use renderer::backend::{Buffer, Pipeline};
+use renderer::types::ClearMask;
 
 /// Serialized graphics command.
 #[derive(Clone)]
@@ -24,6 +24,8 @@ pub struct CommandBuffer {
 }
 
 impl CommandBuffer {
+    /// Creates a new command buffer from a batch of commands and an associated
+    /// sort key.
     pub fn new(commands: Vec<Command>, key: SortKey) -> CommandBuffer {
         CommandBuffer {
             commands: commands,
@@ -31,6 +33,7 @@ impl CommandBuffer {
         }
     }
 
+    /// Drains the commands out of the command buffer so they can be processed.
     pub fn unpack(&mut self) -> Vec<Command> {
         self.commands.drain(..).collect()
     }

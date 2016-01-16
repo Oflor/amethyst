@@ -5,13 +5,16 @@ use renderer::ir::CommandBuffer;
 use std::fmt::Debug;
 
 mod handles;
-pub mod statedyn;
+mod statedyn;
 pub mod statestat;
 
 pub use self::handles::{Buffer, Pipeline};
 
 /// Trait implemented by renderer backends.
-pub trait Backend {
+pub trait Backend: Sized {
+    type Resources: Resources;
+    type States: States;
+
     fn process(&mut self, buffers: Vec<CommandBuffer>);
 }
 
@@ -33,5 +36,5 @@ pub trait States: Clone + Debug + Eq + PartialEq {
 
 pub trait Factory<R: Resources, S: States> {
     fn create_buffer(&mut self) -> Buffer<R::Buffer>;
-    fn create_pipeline(&mut self) -> Pipeline<S::Pipeline>;
+    fn create_pipeline(&mut self, info: PipelineInfo) -> Pipeline<S::Pipeline>;
 }
