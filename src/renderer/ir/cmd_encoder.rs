@@ -1,7 +1,6 @@
 use super::cmd_buffer::{Command, CommandBuffer, SortKey};
-use super::state_dynamic::DynamicState;
-use super::state_static::Pipeline;
-use renderer::types::{Buffer, ClearMask};
+use renderer::backend::{Buffer, Pipeline};
+use renderer::types::ClearMask;
 
 /// Builds new CommandBuffers.
 pub struct CommandEncoder {
