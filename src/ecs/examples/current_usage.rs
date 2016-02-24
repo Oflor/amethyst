@@ -23,14 +23,14 @@ struct Mesh {
 }
 
 fn main() {
-    let mut world = World::new();
-    
+    let mut w = World::new();
+
     for i in 0..180 {
-        let ent = world.create_entity();
-        world.insert_component(ent, Position { x: i as f32 * 0.1, y: 0.0, z: 0.0 });
-        world.insert_component(ent, Light { x: 0.0, y: 0.0, z: 0.0 });
-        world.insert_component(ent, Mesh { handle: 1234567890, y: 12 });
+        let ent = w.create_entity()
+                   .add_comp(&mut w, Position { x: i as f32 * 0.1, y: 0.0, z: 0.0 })
+                   .add_comp(&mut w, Light { x: 0.0, y: 0.0, z: 0.0 })
+                   .add_comp(&mut w, Mesh { handle: 1234567890, y: 12 });
     }
 
-    println!("Component Position #{}: {:?}", 60, world.component::<Position>(60).unwrap().1);
+    println!("Component Position #{}: {:?}", 60, w.component::<Position>(60).unwrap().1);
 }

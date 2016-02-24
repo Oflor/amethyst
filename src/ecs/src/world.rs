@@ -5,7 +5,15 @@ use super::dynvec::DynVec;
 use std::any::{Any, TypeId};
 use std::collections::{HashMap, BTreeMap};
 
-pub type Entity = u64;
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+pub struct Entity(u64);
+
+impl Entity {
+    pub fn add_comp<T: Any>(self, w: &mut World, comp: T) -> Self {
+        w.insert_component(self, comp);
+        self
+    }
+}
 
 type Components = HashMap<TypeId, DynVec>;
 type EntityData = HashMap<TypeId, usize>;
@@ -24,15 +32,15 @@ impl World {
         World {
             components: Components::new(),
             ent_data: BTreeMap::new(),
-            next_ent: 0,
+            next_ent: Entity(0),
         }
     }
 
     /// Creates a new entity in the world and returns a handle to it.
     pub fn create_entity(&mut self) -> Entity {
         self.ent_data.insert(self.next_ent, EntityData::new());
-        self.next_ent += 1;
-        self.next_ent - 1
+        self.next_ent.0 += 1;
+        Entity(self.next_ent.0 - 1)
     }
 
     /// Destroys a given entity and removes its components.
