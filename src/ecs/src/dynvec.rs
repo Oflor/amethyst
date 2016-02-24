@@ -4,7 +4,7 @@ use std::any::{Any, TypeId};
 use std::mem::{transmute, size_of};
 use std::ops::{Index, IndexMut};
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct DynVec {
     vec: Vec<u8>,
     unused: Vec<usize>,

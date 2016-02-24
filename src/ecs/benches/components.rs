@@ -25,7 +25,37 @@ struct Mesh {
 }
 
 #[bench]
+fn world_init(b: &mut Bencher) {
+    b.iter(|| {
+		let mut world = World::new();
+
+		let mut ents = Vec::with_capacity(2000);
+		for _ in 0..ents.capacity() {
+			ents.push(world.create_entity());
+		}
+    });
+}
+
+#[bench]
 fn insert(b: &mut Bencher) {
+    b.iter(|| {
+		let mut world = World::new();
+
+		let mut ents = Vec::with_capacity(2000);
+		for _ in 0..ents.capacity() {
+			ents.push(world.create_entity());
+		}
+        for i in 0..ents.len() {
+            let ent = ents.get(i).unwrap().clone();
+            world.insert_component(ent, Position { x: 0.0, y: 0.0, z: 0.0 });
+            world.insert_component(ent, Light { x: 0.0, y: 0.1, z: 0.0 });
+            world.insert_component(ent, Mesh { handle: 1234567890, y: 12 });
+        }
+    });
+}
+
+#[bench]
+fn insert_remove(b: &mut Bencher) {
     let mut world = World::new();
 
     let mut ents = Vec::with_capacity(2000);
@@ -36,8 +66,11 @@ fn insert(b: &mut Bencher) {
         for i in 0..ents.len() {
             let ent = ents.get(i).unwrap().clone();
             world.insert_component(ent, Position { x: 0.0, y: 0.0, z: 0.0 });
-            world.insert_component(ent, Light { x: 0.0, y: 0.0, z: 0.0 });
+            world.insert_component(ent, Light { x: 0.0, y: 0.1, z: 0.0 });
             world.insert_component(ent, Mesh { handle: 1234567890, y: 12 });
+            world.remove_component::<Position>(ent);
+            world.remove_component::<Light>(ent);
+            world.remove_component::<Mesh>(ent);
         }
     });
 }
